@@ -9,3 +9,9 @@ Airflow 배포 및 설정 테스트용 레퍼지토리
 - Airflow를 설치하기 위한 Docker / docker-compose
 - Airflow의 백엔드 DB역할을 수행할 Postgres
 - Airflow 시스템을 모니터링할 Grafana, Prometheus
+
+## Airflow 설치 (3.0.6 버전 기준)
+1. docker-compose 파일을 다운로드 한다.
+```bash
+curl -LfO 'https://airflow.apache.org/docs/apache-airflow/3.0.6/docker-compose.yaml'
+```

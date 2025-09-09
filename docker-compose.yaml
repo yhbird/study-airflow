@@ -53,7 +53,7 @@ x-airflow-common:
   # build: .
   environment:
     &airflow-common-env
-    AIRFLOW__API_AUTH__JWT_SECRET: '${AIRFLOW_API_AUTH__JWT_SECRET:-$(./scripts/check_jwt)}'
+    AIRFLOW__API_AUTH__JWT_SECRET: '${AIRFLOW_API_AUTH__JWT_SECRET:-$(./env/check_jwt)}'
     AIRFLOW__API_AUTH__JWT_ALGORITHM: HS256
     AIRFLOW__CORE__EXECUTOR: CeleryExecutor
     AIRFLOW__CORE__AUTH_MANAGER: airflow.providers.fab.auth_manager.fab_auth_manager.FabAuthManager
@@ -82,7 +82,7 @@ x-airflow-common:
     - ${AIRFLOW_PROJ_DIR:-.}/data:/opt/airflow/data
     - ${AIRFLOW_PROJ_DIR:-.}/env:/opt/airflow/env
     - ${AIRFLOW_PROJ_DIR:-.}/scripts:/opt/airflow/scripts
-  user: "${AIRFLOW_UID:-50000}:0"
+  user: "${AIRFLOW_UID:-50000}:${AIRFLOW_GID:-0}"
   depends_on:
     &airflow-common-depends-on
     redis:
@@ -297,7 +297,7 @@ services:
       _AIRFLOW_WWW_USER_USERNAME: ${_AIRFLOW_WWW_USER_USERNAME:-airflow}
       _AIRFLOW_WWW_USER_PASSWORD: ${_AIRFLOW_WWW_USER_PASSWORD:-airflow}
       _PIP_ADDITIONAL_REQUIREMENTS: ''
-    user: "0:0"
+    user: "${AIRFLOW_UID:-50000}:${AIRFLOW_GID:-0}"
 
   airflow-cli:
     <<: *airflow-common

@@ -1,0 +1,5 @@
+#!/bin/bash
+
+sudo apt-get update
+sudo apt install -y build-essential libmariadb-dev
+sudo apt-get install -y gcc make pkg-config libldap2-dev libsasl2-dev libssl-dev python3-dev
